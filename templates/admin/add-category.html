@@ -1,0 +1,39 @@
+{% extends "admin/master.html" %}
+{% block title %} Add-Category {% endblock %}
+
+
+{% block content %}
+  <div class="container-xxl flex-grow-1 container-p-y">
+
+      <div class="col-xl-12">
+          <!-- File input -->
+          <form action="{{ url_for('addCategory') }}" method="post" enctype="multipart/form-data">
+            
+              <div class="card">
+                
+                  {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for status, message in messages %}
+                            <p class="alert alert-{{ status }} p-3"> {{ message }} </p>
+                        {% endfor %}
+                    {% endif %}
+                  {% endwith %}
+              
+                  <div class="card-body">
+
+                      <div class="row">
+                          <div class="mb-3 col-6">
+                              <label for="category" class="form-label">Category</label>
+                              <input id="category" required class="form-control" type="text" name="name" />
+                          </div>
+                         
+                      <div class="mb-3">
+                          <input type="submit" class="btn btn-primary" value="Add Post">
+                      </div>
+                  </div>
+              </div>
+          </form>
+
+      </div>
+  </div>
+{% endblock %}

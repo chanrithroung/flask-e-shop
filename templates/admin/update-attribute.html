@@ -1,0 +1,41 @@
+{% extends "admin/master.html" %}
+{% block title %} Admin add attribute {% endblock %}
+
+{% block content %}
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="col-xl-12">
+            <!-- File input -->
+            <form action="{{ url_for('update_attribute', id=attribute[0]) }}" method="post" enctype="multipart/form-data">
+                <div class="card">
+                    
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for status, message in messages %}
+                                <p class="alert alert-{{ status }} text-center">{{ message }}</p>
+                            {% endfor %}
+                        {% endif%}
+                    {% endwith %}
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="mb-3 col-6">
+                                <label for="formFile"  class="form-label">Vlue</label>
+                                <input class="form-control" value="{{ attribute[1] }}" type="text" name="value" />
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="formFile" class="form-label">Type</label>
+                                <select name="type" class="form-control">
+                                    <option {% if attribute[2] == "size"  %}  {{ selected }} {% endif %} value="size">Size</option>
+                                    <option {% if attribute[2] == "color" %} {{ selected }} {% endif %} value="color">Color</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="submit" class="btn btn-primary" value="Add Post">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "admin/master.html" %}
+{% block title %} {% endblock %}
+
+{% block content %}
+    <div class="container-xxl flex-grow-1 container-p-y">
+
+        <div class="col-xl-12">
+          <!-- File input -->
+            <form action="{{ url_for('addPost') }}" method="post" enctype="multipart/form-data">
+                <div class="card">
+                    <!-- Get message -->
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% for category, message in messages %}  
+                            {% if message %}  
+                                <p class="alert alert-{{ category }}">{{ message }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% endwith %}
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="mb-3 col-6">
+                                <label for="formFile" class="form-label">Name</label>
+                                <input class="form-control" required type="text" name="name" />
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="formFile" class="form-label">Quantity</label>
+                                <input required class="form-control" type="text" name="qty" />
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="formFile" class="form-label">Regular Price</label>
+                                <input required class="form-control" type="text" name="regular_price" />
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="formFile" class="form-label">Sale Price</label>
+                                <input class="form-control" type="text" name="sale_price" />
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="formFile" class="form-label">Available Size</label>
+                                <select name="size[]" required class="form-control size-color" multiple="multiple">
+                                    {% for size in sizes %}
+                                        <option value="{{ size[1] }}">{{ size[1] }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="formFile" class="form-label">Available Color</label>
+                                <select name="color[]" required class="form-control size-color" multiple="multiple">
+                                    {% for color in colors %}
+                                        <option value="{{color[1]}}">{{color[1]}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="formFile" class="form-label">Category</label>
+                                <select name="category" class="form-control">
+                                    {% for category in categories %}
+                                        <option value="{{category[0]}}"> {{category[1]}} </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-3 col-6">
+                                <label for="formFile" class="form-label text-danger">Recommend image size ..x.. pixels.</label>
+                                <input class="form-control" required type="file" name="thumbnail" />
+                            </div>
+                            <div class="mb-3 col-12">
+                                <label for="formFile" class="form-label text-danger">Description</label>
+                                <textarea required name="description" class="form-control" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="submit" class="btn btn-primary" value="Add Post">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

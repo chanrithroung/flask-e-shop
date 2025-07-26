@@ -270,7 +270,7 @@ def update_category(id):
         cursor = connection.cursor()
         if connection:
             try:
-                cursor.execute("SELECT * FROM `category` WHERE `id` = %s", (id))
+                cursor.execute("SELECT * FROM `category` WHERE `id` = %s", (id,))
                 category = cursor.fetchone()
 
                 cursor.close()
@@ -305,7 +305,7 @@ def delete_category():
         # return id
         connection = get_database()
         cursor = connection.cursor()
-        cursor.execute("DELETE FROM `category` WHERE `id`=%s", (id))
+        cursor.execute("DELETE FROM `category` WHERE `id`=%s", (id,))
         connection.commit()
         connection.close()
         cursor.close()
@@ -367,7 +367,7 @@ def update_attribute(id):
     cursor = connection.cursor()
 
     if request.method == "GET":
-        cursor.execute("SELECT * FROM `attribute` WHERE `id` = %s", (id))
+        cursor.execute("SELECT * FROM `attribute` WHERE `id` = %s", (id,))
         attribute = cursor.fetchone()
         connection.commit()
         connection.close()
